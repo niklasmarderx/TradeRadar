@@ -118,6 +118,18 @@ Antworte IMMER als valides JSON:
     "claims": [
       { "claim": "Aussage aus der Analyse", "status": "grounded" | "speculative" | "unverifiable" }
     ]
+  },
+  "scenarioProbabilities": {
+    "bull": <0-100: Wahrscheinlichkeit des Bull-Szenarios in %>,
+    "base": <0-100: Wahrscheinlichkeit des Base-Szenarios in %>,
+    "bear": <0-100: Wahrscheinlichkeit des Bear-Szenarios in %>,
+    "rationale": "<1-2 Saetze: Warum diese Verteilung?>"
+  },
+  "priceTargets": {
+    "week1": <number: realistischer Kurs in 1 Woche>,
+    "month1": <number: realistischer Kurs in 1 Monat>,
+    "month3": <number: realistischer Kurs in 3 Monaten>,
+    "rationale": "<1-2 Saetze: Grundlage der Zeitreihen-Schaetzung>"
   }
 }
 
@@ -142,7 +154,18 @@ Fact Audit:
 - Pruefe 3-5 zentrale Behauptungen aus deiner eigenen Analyse
 - "grounded": Durch vorliegende Daten/Kennzahlen belegt
 - "speculative": Plausibel aber unsicher, abhaengig von Annahmen
-- "unverifiable": Kann mit vorliegenden Daten nicht geprueft werden`;
+- "unverifiable": Kann mit vorliegenden Daten nicht geprueft werden
+
+Szenario-Wahrscheinlichkeiten:
+- bull + base + bear MUSS exakt 100 ergeben
+- bull >= 10%, bear >= 10% (niemals 0% — Maerkte sind unsicher)
+- Orientierung: BUY-Signal → base 40-50%, bull 30-40%, bear 15-25%
+- Begruende die Verteilung mit konkreten Faktoren (Volatilitaet, Trend, Fundamentals)
+
+Preis-Zeitreihe:
+- week1/month1/month3 sind KEINE Garantien, sondern wahrscheinlichste Kurshoehe
+- Nutze ATR, Trendstaerke und Fundamentals als Grundlage
+- Bleibe konservativ — lieber unter- als ueberschaetzen`;
 
 function buildAnalysisPrompt(req: AIAnalysisRequest): string {
   const { ticker, name, currentPrice, indicators, companyOverview, relatedNews, marketPhase } = req;

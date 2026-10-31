@@ -50,6 +50,12 @@ export default function Header({ marketPhase, updated }: HeaderProps) {
             Picks
           </Link>
           <Link
+            href="/performance"
+            className="hidden sm:block text-[10px] text-muted hover:text-accent uppercase tracking-wider transition-colors"
+          >
+            Performance
+          </Link>
+          <Link
             href="/portfolio"
             className="hidden sm:block text-[10px] text-muted hover:text-accent uppercase tracking-wider transition-colors"
           >

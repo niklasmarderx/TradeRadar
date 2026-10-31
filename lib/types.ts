@@ -329,4 +329,16 @@ export interface AIAnalysisResponse {
   factAudit?: {
     claims: { claim: string; status: "grounded" | "speculative" | "unverifiable" }[];
   };
+  scenarioProbabilities?: {
+    bull: number;   // 0-100 %
+    base: number;   // 0-100 %
+    bear: number;   // 0-100 %
+    rationale: string;
+  };
+  priceTargets?: {
+    week1: number;
+    month1: number;
+    month3: number;
+    rationale: string;
+  };
 }

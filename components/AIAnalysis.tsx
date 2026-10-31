@@ -241,6 +241,56 @@ export default function AIAnalysis({ ticker }: AIAnalysisProps) {
             <span className="text-foreground">{result.methodology}</span>
           </div>
 
+          {/* Scenario Probabilities */}
+          {result.scenarioProbabilities && (
+            <div>
+              <span className="text-[10px] text-muted uppercase tracking-wider block mb-2">Szenarien (Wahrscheinlichkeit)</span>
+              <div className="space-y-1.5">
+                {(["bull", "base", "bear"] as const).map((key) => {
+                  const pct = result.scenarioProbabilities![key];
+                  const color = key === "bull" ? "bg-up" : key === "bear" ? "bg-down" : "bg-accent";
+                  const label = key === "bull" ? "Bull" : key === "bear" ? "Bear" : "Base";
+                  return (
+                    <div key={key} className="flex items-center gap-2">
+                      <span className="text-[10px] text-muted w-8 shrink-0">{label}</span>
+                      <div className="flex-1 bg-background rounded-full h-2 overflow-hidden">
+                        <div className={`h-full rounded-full ${color}`} style={{ width: `${pct}%` }} />
+                      </div>
+                      <span className="font-mono-num text-xs text-foreground w-8 text-right">{pct}%</span>
+                    </div>
+                  );
+                })}
+              </div>
+              {result.scenarioProbabilities.rationale && (
+                <p className="text-[10px] text-muted mt-1.5 leading-relaxed">{result.scenarioProbabilities.rationale}</p>
+              )}
+            </div>
+          )}
+
+          {/* Price Targets Timeline */}
+          {result.priceTargets && (
+            <div>
+              <span className="text-[10px] text-muted uppercase tracking-wider block mb-2">Preis-Zeitreihe (KI-Schätzung)</span>
+              <div className="grid grid-cols-3 gap-2">
+                <div className="bg-background rounded p-2 text-center">
+                  <span className="text-[9px] text-muted uppercase tracking-wider block">1 Woche</span>
+                  <span className="font-mono-num text-sm text-bright">{result.priceTargets.week1.toFixed(2)} &euro;</span>
+                </div>
+                <div className="bg-background rounded p-2 text-center">
+                  <span className="text-[9px] text-muted uppercase tracking-wider block">1 Monat</span>
+                  <span className="font-mono-num text-sm text-bright">{result.priceTargets.month1.toFixed(2)} &euro;</span>
+                </div>
+                <div className="bg-background rounded p-2 text-center">
+                  <span className="text-[9px] text-muted uppercase tracking-wider block">3 Monate</span>
+                  <span className="font-mono-num text-sm text-bright">{result.priceTargets.month3.toFixed(2)} &euro;</span>
+                </div>
+              </div>
+              {result.priceTargets.rationale && (
+                <p className="text-[10px] text-muted mt-1.5 leading-relaxed">{result.priceTargets.rationale}</p>
+              )}
+            </div>
+          )}
+
           {/* Reasoning */}
           <div>
             <span className="text-[10px] text-muted uppercase tracking-wider block mb-1">Begruendung</span>

@@ -22,7 +22,11 @@
 
 # misc
 .DS_Store
+._*
 *.pem
+
+# Local data cache
+/.cache/
 
 # debug
 npm-debug.log*
@@ -39,3 +43,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# distDir on /tmp (exFAT fix)
+/tmp/traderar-next/
+
+# Daily picks log (contains live prices)
+/public/trading-data.json
